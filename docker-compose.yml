@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  invisiproxy:
+    image: quiteafancyemerald/invisiproxy:7.0.2
+    build: .
+    container_name: invisiproxy
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production

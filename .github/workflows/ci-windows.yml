@@ -1,0 +1,40 @@
+name: CI-Win
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm run fresh-install
+
+      - name: Build libraries
+        run: pnpm run build
+
+      - name: Start server
+        run: pnpm run workflow-test
+
+      - name: Test server response
+        run: pnpm test
+
+      - name: Stop server after testing
+        run: pnpm stop

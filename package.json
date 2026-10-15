@@ -1,0 +1,56 @@
+{
+  "name": "invisiproxy",
+  "version": "7.0.2.1",
+  "repository": "https://github.com/QuiteAFancyEmerald/InvisiProxy",
+  "description": "InvisiProxy LTS is a web proxy service that helps you access websites that may be blocked by your network, government or policy all within your browser with no download or setup.",
+  "main": "backend.js",
+  "scripts": {
+    "fresh-install": "pnpm update && pnpm install --frozen-lockfile",
+    "fresh-start": "pnpm run fresh-install && pnpm start",
+    "start": "pnpm stop && pnpm run build && pnpm run manual-start",
+    "restart": "node run-command.mjs stop start",
+    "stop": "node run-command.mjs stop",
+    "test": "pnpm run proxy-validator",
+    "manual-start": "node run-command.mjs start",
+    "kill": "node run-command.mjs stop kill",
+    "fetch-adblock": "curl -o views/assets/txt/blacklist.txt https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt",
+    "fetch-adblock-ultimate": "curl -o views/assets/txt/blacklist.txt https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/ultimate.txt",
+    "build": "node run-command.mjs build",
+    "clear": "node run-command.mjs clean",
+    "clean": "node run-command.mjs clean format",
+    "proxy-validator": "node proxyServiceValidator.js",
+    "workflow-test": "node run-command.mjs workflow",
+    "deployment": "pnpm install && pnpm run build && node backend.js",
+    "postinstall": "playwright install chromium"
+  },
+  "keywords": [
+    "proxy",
+    "node.js",
+    "unblocker"
+  ],
+  "author": "TitaniumNetwork",
+  "license": "AGPL-3.0-only",
+  "dependencies": {
+    "@fastify/helmet": "^13.1.1",
+    "@fastify/static": "^9.3.0",
+    "@mercuryworkshop/bare-mux": "^2.1.9",
+    "@mercuryworkshop/epoxy-transport": "^3.0.1",
+    "@mercuryworkshop/libcurl-transport": "^2.0.5",
+    "@mercuryworkshop/proxy-transports": "^1.0.2",
+    "@mercuryworkshop/scramjet": "2.0.67-alpha.2",
+    "@mercuryworkshop/scramjet-controller": "0.0.14",
+    "@mercuryworkshop/scramjet-utils": "^0.0.3",
+    "@titaniumnetwork-dev/ultraviolet": "https://github.com/titaniumnetwork-dev/Ultraviolet/releases/download/v3.2.10-headers/titaniumnetwork-dev-ultraviolet-3.2.10-headers.tgz",
+    "axios": "^1.20.0",
+    "fastify": "^5.12.5",
+    "pm2": "^7.0.4",
+    "utf-8-validate": "^6.0.6",
+    "wispurr": "^4.2.0",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.29.7",
+    "esbuild": "^0.27.7",
+    "playwright": "^1.63.0"
+  }
+}
